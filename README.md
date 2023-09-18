@@ -10,7 +10,7 @@ This is a basic and straightforward Telegram Web App(TWA) implemented using plai
 
 - App is available via direct link: https://t.me/simple_telegram_web_app_bot/app
 - Or you can launch app with a bot menu button: https://t.me/simple_telegram_web_app_bot
-- Deployment URL: https://twa-dev.github.io/simple-telegram-web-app/
+- Deployment URL: [https://twa-dev.github.io/simple-telegram-web-app/](https://twa-dev.github.io/vanilla-js-boilerplate/)
 
 ## Features
 - Minimalistic user interface.
@@ -28,12 +28,12 @@ To run this example, you'll need a modern web browser with JavaScript enabled.
 1. Clone this repository to your local machine:
 
    ```bash
-   git clone https://github.com/twa-dev/simple-telegram-web-app.git
+   git clone https://github.com/twa-dev/vanilla-js-boilerplate
 
 2. Navigate to the project directory:
 
 	```bash
-	cd simple-telegram-web-app
+	cd vanilla-js-boilerplate
 
 Open index.html in your preferred code editor or IDE.
 
