@@ -1,0 +1,37 @@
+body {
+    background-color: beige;
+}
+.wrapper {
+    width: 80%;
+    margin: auto;
+}
+.header h1 {
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 1000;
+}
+.search-user {
+    margin: auto;
+    display: flex;
+    border-radius: 30px;
+    border: 2px solid black;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    height: 50px;
+}
+a {
+    font-size: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    transition: 0.2s;
+    background-color: rgb(232, 224, 192);
+}
+a:target {
+    transition: 0.2s;
+    background-color: rgb(232, 224, 192);
+}
