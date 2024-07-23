@@ -20,7 +20,7 @@ if errorlevel 1 (
     git commit -m "Auto-commit"
  
     :: 推送改动到远程仓库
-    git push
+    git push origin/master
 )
  
 :: 退出批处理
