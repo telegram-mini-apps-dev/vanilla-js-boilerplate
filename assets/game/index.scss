@@ -1,0 +1,155 @@
+.game-wrapper {
+  height: 100vh;
+  overflow: hidden;
+  width: 100%;
+  .loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding-bottom: 5rem;
+    img {
+      width: 5rem;
+    }
+  }
+  .game-over-bots {
+    width: 100%;
+    position: relative;
+  }
+  .game-over {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 12px;
+    .game-over-top {
+      text-align: center;
+    }
+    .game-over-btns {
+      width: 100%;
+    }
+    .congrats-img {
+      width: 50vw;
+      margin-bottom: 22px;
+    }
+    .congrats {
+      font-family: 'bold';
+      font-size: 2rem;
+      line-height: 2.4rem;
+    }
+    .score-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 12px;
+      font-size: 3rem;
+      color: var(--highColor);
+      font-family: 'number';
+      text-shadow: -1px -1px 0 #fff;
+      img {
+        width: 22px;
+        height: 22px;
+        object-fit: contain;
+      }
+    }
+   
+    .game-over-btn {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      background: var(--highColor);
+      border-radius: 50px;
+      padding: 0 4px;
+      font-size: 1.3rem;
+      font-weight: bold;
+      height: 3.6rem;
+      margin-top: 12px;
+      color: #000;
+      text-align: center;
+      background-image: url('/assets/game/btnBg.png');
+      background-size: 100% 100%;
+      .avatar {
+        width: 32px;
+        object-fit: contain;
+      }
+      .game-over-bot-middle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        flex: 1;
+        color: #000;
+        .tomato {
+          width: 22px;
+          height: 22px;
+          object-fit: contain;
+        }
+      }
+    }
+    .play-btn {
+      background: #91D752;
+    }
+  }
+
+}
+.popup-result {
+  .popup-title {
+    position: relative;
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: bold;
+    line-height: 2.2rem;
+    margin-top: 12px;
+    color: #000;
+    .close-svg {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translate(0, -50%);
+    }
+  }
+  .popup-content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 18px 12px;
+    color: #000;
+    .popup-content-jb {
+      font-size: 5rem;
+    }
+    .score-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 12px;
+      font-size: 3rem;
+      color: red;
+      font-family: 'number';
+      text-shadow: -1px -1px 0 red;
+      img {
+        width: 18px;
+        height: 18px;
+        object-fit: contain;
+      }
+    }
+    .popup-content-btn {
+      height: 3.2rem;
+      border: 1px solid #000;
+      width: 100%;
+      text-align: center;
+      margin-top: 12px;
+      line-height: 3.2rem;
+      font-size: 1.3rem;
+      font-family: 'bold';
+      border-radius: 50px;
+    }
+    .btn-send {
+      background: var(--btnBg);
+      border: none;
+    }
+  }
+}
