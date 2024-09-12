@@ -1,28 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
+
+    <!-- 
+    Sets the viewport for responsive design, ensuring the page is properly scaled on different devices.
+    'width=device-width' makes the viewport width match the device's width.
+    'minimum-scale=1.0' and 'maximum-scale=1.0' prevent zooming.
+    'user-scalable=no' disables the user from zooming in or out.
+    -->
     <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <!-- 
+    Ensures that the webpage renders well in all browsers, especially in Internet Explorer.
+    'IE=edge' tells Internet Explorer to display the page in the highest mode available.
+    -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
     <title>Basic Telegram Mini App With BackEnd</title>
+
+    <!-- 
+    Links an external CSS stylesheet for styling the HTML document.
+    The 'assets/css/styles.css' file contains custom styles for the webpage.
+    -->
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 
 <body>
+
+    <!-- 
+    A loading indicator shown while waiting for data. Initially, it is displayed.
+    -->
     <div id="loader"></div>
+
+    <!-- 
+    The main content of the webpage. It is hidden initially and will be shown after validation of data.
+    -->
     <div id="content" style="display: none;">
         <main>
+            <!-- 
+            Displays a clickable image that links to the TON website. 
+            The image is centered using the 'align="center"' attribute, and its size is set to 48 pixels wide.
+            -->
             <div align="center">
-                <a href="https://ton.org/"><img width="48" src="./assets/img/tapps.png"
-                        alt="Telegram Web Apps logo"></a>
+                <a href="https://ton.org/"><img width="48" src="./assets/img/tapps.png" alt="Telegram Web Apps logo"></a>
             </div>
+
+            <!-- 
+            Section for modals with buttons to trigger alert, confirm, and popup modals.
+            -->
             <h1>Modals</h1>
             <button id="alertBtn">Launch Alert</button>
             <button id="confirmBtn">Launch Confirm</button>
             <button id="popupBtn">Launch Popup</button>
 
+            <!-- 
+            Section for different link actions, such as opening links within Telegram or external browsers.
+            Each link has an 'id' for JavaScript interactions.
+            -->
             <h1>Links</h1>
             <ul>
                 <li>
@@ -36,30 +72,47 @@
                 </li>
             </ul>
 
+            <!-- 
+            Section for different actions related to buttons that interact with the Telegram Web App API.
+            -->
             <h1>Buttons</h1>
             <button id="expandBtn">Expand Webview</button>
             <button id="toggleMainBtn">Toggle Main Button</button>
             <button id="validateBtn">Validate Init Data</button>
         </main>
+
+        <!-- 
+        Elements for displaying dynamic viewport size information.
+        -->
         <div id="viewport"></div>
         <div id="viewport-params-size"></div>
         <div id="viewport-params-expand"></div>
     </div>
 
+    <!-- 
+    JavaScript files that contain the logic for interacting with the Telegram Web App and main functionality of the page.
+    - 'telegram-web-app.js': Handles Telegram WebApp initialization.
+    - 'main.js': Contains main event listeners and functions for user interaction.
+    -->
     <script src="assets/js/telegram-web-app.js"></script>
     <script src="assets/js/main.js"></script>
 
+    <!-- 
+    Inline script to validate the Telegram WebApp's init data as soon as the content is fully loaded.
+    The 'validateInitData' function is called when the DOM content is loaded.
+    -->
     <script>
         window.addEventListener('DOMContentLoaded', () => {
             validateInitData();
         });
     </script>
 
-    <!-- Optional: Eruda for mobile debugging -->
+    <!-- 
+    Optional: Eruda is a tool for mobile debugging. This script loads Eruda from a CDN and initializes it for debugging purposes.
+    -->
     <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
     <script>
         eruda.init();
     </script>
 </body>
-
 </html>
