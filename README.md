@@ -44,7 +44,7 @@ This is a basic and straightforward Telegram Mini App(TMA) implemented using pla
 
 3. Set up your database by creating a table for storing Telegram user data:
 
-	```bash
+	```sql
 	CREATE TABLE `users` ( `telegramChatId` BIGINT NOT NULL PRIMARY KEY );
 
 4. Edit `/api/api.php` to include your bot token and database credentials:
