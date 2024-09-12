@@ -1,6 +1,6 @@
 <p align="center">
   <br>
-  <img width="240" src="./assets/tapps.png" alt="logo of telegram web apps">
+  <img width="240" src="./assets/img/tapps.png" alt="logo of telegram web apps">
   <br>
   <br>
 </p>
@@ -10,7 +10,7 @@ This is a basic and straightforward Telegram Mini App(TMA) implemented using pla
 
 ## Features
 
-- **Validation of initData**: Ensures that the initData sent by the Telegram WebApp is valid by checking the HMAC hash and database for registered users.
+- **Validation of initData**: Ensures that the initData sent by the Telegram MiniApp is valid by checking the HMAC hash and database for registered users.
 - **Modal Alerts and Confirmations**: Displays different types of modals such as alerts, confirmations, and popups.
 - **Link Management**: Opens links either within Telegram or in an external browser.
 - **Dynamic UI Elements**: Adjusts the UI based on Telegram's webview properties like viewport size and expansion.
@@ -21,14 +21,14 @@ This is a basic and straightforward Telegram Mini App(TMA) implemented using pla
 
 ## Project Structure
 
-- **api.php**: Handles the server-side validation of initData from the Telegram WebApp.
-- **index.html**: Contains the front-end structure with basic interaction capabilities using Vanilla JS.
-- **telegram-web-app.js**: Initializes and interacts with Telegram WebApp features.
+- **/api/api.php**: Handles the server-side validation of initData from the Telegram MiniApp.
+- **index.html**: Contains the front-end structure with basic interaction capabilities.
+- **telegram-web-app.js**: Initializes and interacts with Telegram MiniApp features.
 
 
 ### Prerequisites
 
-- A Telegram bot token with access to the WebApp.
+- A Telegram bot token with access to the MiniApp.
 - A MySQL database for storing user information.
 
 ### Installation
@@ -48,7 +48,7 @@ This is a basic and straightforward Telegram Mini App(TMA) implemented using pla
 	```bash
 	CREATE TABLE `users` ( `telegramChatId` BIGINT NOT NULL PRIMARY KEY );
 
-4. Edit `api.php` to include your bot token and database credentials:
+4. Edit `/api/api.php` to include your bot token and database credentials:
 
 	```bash
 	$botToken = 'your-telegram-bot-token';
@@ -62,14 +62,11 @@ This is a basic and straightforward Telegram Mini App(TMA) implemented using pla
 	```bash
 	php -S localhost:8000
 
-
-Open index.html in your preferred code editor or IDE.
-
 ### Usage
-1. Open `index.html` and `api.php` in your preferred code editor or IDE.
+1. Open `index.html` and `/api/api.php` in your preferred code editor or IDE.
 2. Make your changes
-3. Integrate this app with your Telegram bot by adding the WebApp URL (e.g., `https://yourserver.com/index.html`) to your bot's settings.
-4. When users open the WebApp through Telegram, their data will be validated, and appropriate content will be displayed based on the validation result.
+3. Integrate this app with your Telegram bot by adding the MiniApp URL (e.g., `https://yourserver.com/index.html`) to your bot's settings.
+4. When users open the MiniApp through Telegram, their data will be validated, and appropriate content will be displayed based on the validation result.
 
 ### Customization
 Feel free to customize this web app to suit your needs. You can modify the PHP, HTML, CSS, and JavaScript files as required.
