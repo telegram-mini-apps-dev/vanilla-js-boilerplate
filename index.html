@@ -8,28 +8,68 @@
     />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Loyalty Token Bot</title>
-    <link rel="stylesheet" href="style.css">
-      
-    </style>
+    <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
     <main class="main-display">
       <h1>Loyalty Token Bot</h1>
-      <p>Our bot simplifies the process of creating and managing loyalty tokens for your business, transforming the way you reward and engage with your customers.</p>
-      <button class="main-button" onclick="Telegram.WebApp.expand();">Create a token</button>
-      <button class="main-button" onclick="Telegram.WebApp.expand();">Transfer tokens</button>
+      <p class="text">
+        Our bot simplifies the process of creating and managing loyalty tokens
+        for your business, transforming the way you reward and engage with your
+        customers.
+      </p>
+      <button class="main-button" onclick="Telegram.WebApp.expand();">
+        Create a token
+      </button>
+      <form action="">
+        <label for="token-name">Name of the token:</label>
+        <input
+          type="text"
+          name="token-name"
+          id="token-name"
+          placeholder="Stark Coffee Co"
+          required
+        />
+        <label for="token-name">Symbol of the token:</label>
+        <input
+          type="text"
+          name="token-symbol"
+          id="token-symbol"
+          placeholder="STRKCOFFEE"
+          required
+        />
+        <label for="token-name">Custom supply (if needed):</label>
+        <input
+          type="text"
+          name="token-supply"
+          id="token-supply"
+          placeholder="420000000000"
+        />
+        <label for="token-name">Wallet address of the owner:</label>
+        <input
+          type="text"
+          name="token-address"
+          id="token-address"
+          placeholder="0x1234...abcd"
+          required
+        />
+        <button class="main-button" type="submit">Deploy token</button>
+      </form>
+      <button class="main-button" onclick="Telegram.WebApp.expand();">
+        Transfer tokens
+      </button>
     </main>
     <div id="viewport"></div>
     <div id="viewport-params-size"></div>
     <div id="viewport-params-expand"></div>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script src="script.js"></script>
+    <!-- <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="script.js"></script> -->
 
     <!-- Eruda is console for mobile browsers -->
-    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
     <script>
       eruda.init();
-    </script>
+    </script> -->
   </body>
 </html>
