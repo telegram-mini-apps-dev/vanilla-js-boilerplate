@@ -45,16 +45,10 @@ function toggleMainButton() {
 
 function setViewportData() {
   var sizeEl = document.getElementById("viewport-params-size");
-  sizeEl.innerText =
-    "width: " +
-    window.innerWidth +
-    " x " +
-    "height: " +
-    Telegram.WebApp.viewportStableHeight;
+  sizeEl.innerText = "width: " + window.innerWidth + " x " + "height: " + Telegram.WebApp.viewportStableHeight;
 
   var expandEl = document.querySelector("#viewport-params-expand");
-  expandEl.innerText =
-    "Is Expanded: " + (Telegram.WebApp.isExpanded ? "true" : "false");
+  expandEl.innerText = "Is Expanded: " + (Telegram.WebApp.isExpanded ? "true" : "false");
 }
 
 Telegram.WebApp.setHeaderColor("secondary_bg_color");
@@ -63,11 +57,17 @@ setViewportData();
 Telegram.WebApp.onEvent("viewportChanged", setViewportData);
 
 Telegram.WebApp.onEvent("themeChanged", function () {
-  document.body.setAttribute(
-    "style",
-    "--bg-color:" + Telegram.WebApp.backgroundColor
-  );
+  document.body.setAttribute("style", "--bg-color:" + Telegram.WebApp.backgroundColor);
 });
+
+// New functions for token operations
+function createToken() {
+  document.getElementById('create-token-form').classList.toggle('hidden');
+}
+
+function transferTokens() {
+  document.getElementById('transfer-token-form').classList.toggle('hidden');
+}
 
 // Integrate StarkNet Libraries
 import * as starknet from 'https://cdn.jsdelivr.net/npm/starknet@5.19.5/+esm';
