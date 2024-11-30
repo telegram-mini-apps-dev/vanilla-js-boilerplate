@@ -1,26 +1,31 @@
 body {
-  --bg-color: var(--tg-theme-bg-color);
-  font: 12px/18px "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica,
-    Verdana, sans-serif;
+  --bg-color: #1e1e1e; /* Dark background color */
+  --text-color: #e0e0e0; /* Light text color */
+  --link-color: #00e676; /* Bright green link color */
+  --border-color: #303030; /* Dark border color */
+  font: 12px/18px "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, Verdana, sans-serif;
   background-color: var(--bg-color);
-  color: var(--tg-theme-text-color);
+  color: var(--text-color);
   margin: 48px 24px;
   padding: 0;
-  color-scheme: var(--tg-color-scheme);
+  color-scheme: dark;
 }
 
 a {
-  color: var(--tg-theme-link-color);
+  color: var(--link-color);
 }
+
 #viewport {
   position: fixed;
   left: 0;
   right: 0;
   top: 0;
-  height: var(--tg-viewport-stable-height, 100vh);
+  height: 100vh;
   pointer-events: none;
   transition: all 0.2s ease;
+  border: 1px solid var(--border-color);
 }
+
 #viewport:after {
   content: "";
   display: block;
@@ -31,12 +36,7 @@ a {
   bottom: 0;
   border-width: 4px;
   border-style: solid;
-  border-image: linear-gradient(
-      45deg,
-      rgba(64, 224, 208, 0.5),
-      rgba(173, 255, 47, 0.5)
-    )
-    1;
+  border-image: linear-gradient(45deg, rgba(0, 230, 118, 0.5), rgba(0, 184, 212, 0.5)) 1;
 }
 
 #viewport-params-size,
@@ -44,16 +44,18 @@ a {
   content: attr(text);
   position: absolute;
   display: inline-block;
-  background: var(--tg-theme-link-color, rgb(64, 224, 208));
+  background: var(--link-color);
   right: 4px;
   left: auto;
   font-size: 8px;
   padding: 4px;
   vertical-align: top;
 }
+
 #viewport-params-size {
   top: 4px;
 }
+
 #viewport-params-expand {
   top: 30px;
 }
@@ -66,7 +68,7 @@ a {
   height: 100vh;
   width: 100vw;
   background-color: var(--bg-color);
-  color: var(--tg-theme-text-color);
+  color: var(--text-color);
   font-family: var(--tg-theme-font-family);
   font-size: var(--tg-theme-font-size);
   line-height: var(--tg-theme-line-height);
@@ -75,4 +77,18 @@ a {
 
 .center {
   align: "center";
+}
+
+.main-button {
+  background-color: var(--link-color);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  padding: 10px 20px;
+  margin: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.main-button:hover {
+  background-color: rgba(0, 230, 118, 0.8);
 }
