@@ -19,46 +19,52 @@
         for your business, transforming the way you reward and engage with your
         customers.
       </p>
-      <button class="main-button" onclick="Telegram.WebApp.expand();">
-        Create a token
-      </button>
-      <form action="">
-        <label for="token-name">Name of the token:</label>
-        <input
-          type="text"
-          name="token-name"
-          id="token-name"
-          placeholder="Stark Coffee Co"
-          required
-        />
-        <label for="token-name">Symbol of the token:</label>
-        <input
-          type="text"
-          name="token-symbol"
-          id="token-symbol"
-          placeholder="STRKCOFFEE"
-          required
-        />
-        <label for="token-name">Custom supply (if needed):</label>
-        <input
-          type="text"
-          name="token-supply"
-          id="token-supply"
-          placeholder="420000000000"
-        />
-        <label for="token-name">Wallet address of the owner:</label>
-        <input
-          type="text"
-          name="token-address"
-          id="token-address"
-          placeholder="0x1234...abcd"
-          required
-        />
-        <button class="main-button" type="submit">Deploy token</button>
-      </form>
-      <button class="main-button" onclick="Telegram.WebApp.expand();">
-        Transfer tokens
-      </button>
+      <div id="button-container">
+        <button class="main-button" onclick="Telegram.WebApp.expand();">
+          Create a token
+        </button>
+        <form id="create-token-form" class="hidden">
+          <label for="token-name">Name of the token:</label>
+          <input
+            type="text"
+            name="token-name"
+            id="token-name"
+            placeholder="Stark Coffee Co"
+            required
+          />
+          <label for="token-symbol">Symbol of the token:</label>
+          <input
+            type="text"
+            name="token-symbol"
+            id="token-symbol"
+            placeholder="STRKCOFFEE"
+            required
+          />
+          <label for="token-supply">Custom supply (if needed):</label>
+          <input
+            type="text"
+            name="token-supply"
+            id="token-supply"
+            placeholder="420000000000"
+          />
+          <label for="token-address">Wallet address of the owner:</label>
+          <input
+            type="text"
+            name="token-address"
+            id="token-address"
+            placeholder="0x1234...abcd"
+            required
+          />
+          <button class="main-button" type="submit">Deploy token</button>
+        </form>
+        <button class="main-button" onclick="Telegram.WebApp.expand();">
+          Transfer tokens
+        </button>
+      </div>
+      <div id="success-message" class="hidden">
+        <p>Token created successfully!</p>
+        <button class="main-button" onclick="createNewToken();">Create new token</button>
+      </div>
     </main>
     <div id="viewport"></div>
     <div id="viewport-params-size"></div>
