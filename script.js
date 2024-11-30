@@ -69,6 +69,18 @@ function transferTokens() {
   document.getElementById('transfer-token-form').classList.toggle('hidden');
 }
 
+// Function to show success message and create new token button
+function showSuccessMessage() {
+  document.getElementById('button-container').classList.add('hidden');
+  document.getElementById('success-message').classList.remove('hidden');
+}
+
+// Function to create a new token
+function createNewToken() {
+  document.getElementById('button-container').classList.remove('hidden');
+  document.getElementById('success-message').classList.add('hidden');
+}
+
 // Integrate StarkNet Libraries
 import * as starknet from 'https://cdn.jsdelivr.net/npm/starknet@5.19.5/+esm';
 
