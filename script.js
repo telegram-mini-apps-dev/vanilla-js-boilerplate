@@ -68,3 +68,17 @@ Telegram.WebApp.onEvent("themeChanged", function () {
     "--bg-color:" + Telegram.WebApp.backgroundColor
   );
 });
+
+// Integrate StarkNet Libraries
+import * as starknet from 'https://cdn.jsdelivr.net/npm/starknet@5.19.5/+esm';
+
+const starkProvider = new starknet.SequencerProvider({
+    baseUrl: starknet.constants.BaseUrl.SN_MAIN
+});
+
+async function getChainId() {
+    const chainId = await starkProvider.getChainId();
+    console.log("StarkNet Chain ID:", chainId);
+}
+
+getChainId();
