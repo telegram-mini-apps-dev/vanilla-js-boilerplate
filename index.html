@@ -59,34 +59,91 @@
         #viewport-params-expand {
             top: 30px;
         }
+
+        /* 添加瀑布流布局样式 */
+        main {
+            column-count: 2;
+            column-gap: 20px;
+            padding: 20px;
+        }
+
+        .card {
+            break-inside: avoid;
+            background: var(--tg-theme-secondary-bg-color);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h1 {
+            margin-top: 0;
+            font-size: 18px;
+            color: var(--tg-theme-text-color);
+        }
+
+        .card button {
+            width: 100%;
+            margin: 5px 0;
+            padding: 8px;
+            border: none;
+            border-radius: 8px;
+            background: var(--tg-theme-button-color);
+            color: var(--tg-theme-button-text-color);
+            cursor: pointer;
+        }
+
+        .card ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+            break-inside: avoid;
+        }
+
+        @media (max-width: 600px) {
+            main {
+                column-count: 1;
+            }
+        }
     </style>
 </head>
 
 <body>
     <main>
-        <div align="center">
+        <div class="logo-container">
             <a href="https://ton.org/"><img width="48" src="./assets/tapps.png" alt="logo of telegram web apps"></a>
         </div>
-        <h1>Modals</h1>
-        <button onclick="Telegram.WebApp.showAlert('Hello World!');">Launch Alert</button>
-        <button onclick="showPopup();">Launch Popup</button>
+        
+        <div class="card">
+            <h1>Modals</h1>
+            <button onclick="Telegram.WebApp.showAlert('Hello World!');">Launch Alert</button>
+            <button onclick="showPopup();">Launch Popup</button>
+        </div>
 
-        <h1>Links</h1>
-        <ul>
-            <li>
-                <a href="javascript:Telegram.WebApp.openTelegramLink('https://t.me/trendingapps');">Open link within Telegram</a>
-            </li>
-            <li>
-                <a href="javascript:Telegram.WebApp.openLink('https://ton.org/');">Open link in external browser</a>
-            </li>
-            <li>
-                <a href="javascript:Telegram.WebApp.openLink('https://telegra.ph/api',{try_instant_view:true});">Open link inside Telegram webview</a>
-            </li>
-        </ul>
+        <div class="card">
+            <h1>Links</h1>
+            <ul>
+                <li>
+                    <a href="javascript:Telegram.WebApp.openTelegramLink('https://t.me/trendingapps');">Open link within Telegram</a>
+                </li>
+                <li>
+                    <a href="javascript:Telegram.WebApp.openLink('https://ton.org/');">Open link in external browser</a>
+                </li>
+                <li>
+                    <a href="javascript:Telegram.WebApp.openLink('https://telegra.ph/api',{try_instant_view:true});">Open link inside Telegram webview</a>
+                </li>
+            </ul>
+        </div>
 
-        <h1>Buttons</h1>
-        <button onclick="Telegram.WebApp.expand();">Expand Webview</button>
-        <button onclick="toggleMainButton();">Toggle Main Button</button>
+        <div class="card">
+            <h1>Buttons</h1>
+            <button onclick="Telegram.WebApp.expand();">Expand Webview</button>
+            <button onclick="toggleMainButton();">Toggle Main Button</button>
+        </div>
     </main>
     <div id="viewport"></div>
     <div id="viewport-params-size"></div>
