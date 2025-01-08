@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <MainLayout />
+    <ImageWaterfall />
   </div>
 </template>
 
@@ -12,7 +12,7 @@ import MainLayout from './layouts/MainLayout.vue'
 export default {
   name: 'App',
   components: {
-    MainLayout
+    ImageWaterfall
   }
 }
 </script>
