@@ -67,7 +67,7 @@ export default {
         return this.imageAspectRatios.get(item.image_url);
       }
       // 默认返回一个临时比例，等图片加载完后会更新
-      return 66.67; // 临时 2:3 比例
+      return 56.25; // 临时 9:16 比例
     },
     
     distributeItems() {
@@ -83,7 +83,7 @@ export default {
         this.columns[columnIndex].push(item);
         
         // 使用实际图片比例计算高度
-        const aspectRatio = this.imageAspectRatios.get(item.image_url) || 66.67;
+        const aspectRatio = this.imageAspectRatios.get(item.image_url) || 56.25;
         const itemHeight = (aspectRatio / 100) * this.getColumnWidth();
         columnHeights[columnIndex] += itemHeight + 3; // 3px 为间距
       });
@@ -183,7 +183,7 @@ export default {
                 };
                 img.onerror = () => {
                   // Handle failed image loads
-                  this.imageAspectRatios.set(item.image_url, 66.67);
+                  this.imageAspectRatios.set(item.image_url, 56.25);
                   resolve();
                 };
                 img.src = item.image_url;

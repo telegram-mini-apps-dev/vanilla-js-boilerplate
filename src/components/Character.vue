@@ -1,11 +1,25 @@
 <template>
   <div class="character-page">
-    <div class="image-container">
-      <img :src="imageData" :alt="imageData.description?.join(', ')">
+    <div class="back-button" @click="goBack">
+      <span>←</span>
     </div>
-    <div class="description">
-      <p>{{ imageData.description?.join(', ') }}</p>
-    </div>
+    <div class="chat-container" :style="{ backgroundImage: `url(${imageData})` }">
+      <div class="chat-history">
+        <div v-for="(message, index) in chatHistory" :key="index" 
+             :class="['message', message.type]">
+          <div class="message-content">{{ message.text }}</div>
+        </div>
+      </div>
+      <div class="chat-input">
+        <input 
+          v-model="newMessage" 
+          @keyup.enter="sendMessage"
+          placeholder="Type a message..."
+          type="text"
+        >
+        <button @click="sendMessage">Send</button>
+      </div>
+    </div>    
   </div>
 </template>
 
@@ -16,7 +30,9 @@ export default {
     return {
       imageData: "",       
       selectedIndex: 0,
-      recommendData: []
+      recommendData: [],
+      chatHistory: [], // Array to store chat messages
+      newMessage: ""   // For input message
     }
   },
   methods: {
@@ -34,6 +50,28 @@ export default {
       if (this.recommendData.length > 0) {
         this.imageData = this.recommendData[this.selectedIndex].image_url;
       }
+    },
+    goBack() {
+      this.$router.go(-1);  // Assuming ImageWaterfall is at root route
+    },
+    sendMessage() {
+      if (!this.newMessage.trim()) return;
+      
+      // Add user message
+      this.chatHistory.push({
+        type: 'user',
+        text: this.newMessage
+      });
+
+      // Simulate AI response (you can replace this with actual API call)
+      setTimeout(() => {
+        this.chatHistory.push({
+          type: 'ai',
+          text: `I received: ${this.newMessage}`
+        });
+      }, 1000);
+
+      this.newMessage = ""; // Clear input
     }
   },
   
@@ -53,26 +91,91 @@ export default {
   background: #fff;
 }
 
-.image-container {
+.chat-container {
   width: 100%;
   height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.chat-history {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.message {
+  max-width: 70%;
+  padding: 10px 15px;
+  border-radius: 15px;
+  margin: 5px;
+}
+
+.user {
+  align-self: flex-end;
+  background-color: rgba(0, 132, 255, 0.8);
+  color: white;
+}
+
+.ai {
+  align-self: flex-start;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: black;
+}
+
+.chat-input {
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  gap: 10px;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  outline: none;
+}
+
+.chat-input button {
+  padding: 10px 20px;
+  background-color: #0084ff;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.chat-input button:hover {
+  background-color: #0073e6;
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+  font-size: 24px;
+  z-index: 1;
 }
 
-.image-container img {
-  max-width: 100%;
-  max-height: 100vh;
-  object-fit: contain;
-}
-
-.description {
-  padding: 16px;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
+.back-button:hover {
+  background: rgba(0, 0, 0, 0.7);
 }
 </style>
