@@ -6,10 +6,6 @@ import ImageAdjust from '../components/ImageAdjust.vue'
 const routes = [
   {
     path: '/',
-    // redirect: '/sexsex/'
-  },
-  {
-    path: '/sexsex/',
     component: MainLayout,
     children: [
       {
@@ -18,7 +14,7 @@ const routes = [
         component: Home
       },
       {
-        path: 'image-adjust/:imageUrl/:description',
+        path: '/image-adjust/:imageUrl/:description',
         name: 'ImageAdjust',
         component: ImageAdjust,
         props: true
@@ -28,7 +24,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory('/sexsex/'),
+  history: createWebHistory(),
   routes
 })
 
