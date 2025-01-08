@@ -1,20 +1,26 @@
 {
-  "name": "sexsex",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "name": "web",
+  "version": "1.0.0",
+  "main": "vite.config.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "vite build"
   },
-  "dependencies": {
-    "vue": "^3.5.13"
-  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.1",
-    "gh-pages": "^6.3.0",
-    "vite": "^6.0.5"
+    "vite": "^6.0.6"
   },
-  "homepage": "https://allanchen.github.io/sexsex/"
+  "dependencies": {
+    "vue-router": "^4.5.0"
+  }
 }

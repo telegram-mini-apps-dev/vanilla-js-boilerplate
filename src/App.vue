@@ -1,31 +1,18 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div>
-    <h1>Welcome to Vue</h1>
-    <img alt="Vue logo" src="./assets/vue.svg" />
-    <HelloWorld msg="Vue + Vite" />
+  <div id="app">
+    <MainLayout />
   </div>
 </template>
 
-<style scoped>
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
+<script>
+import ImageWaterfall from './pages/ImageWaterfall.vue'
+// import Home from './laa/Home.vue'
+import MainLayout from './layouts/MainLayout.vue'
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+export default {
+  name: 'App',
+  components: {
+    MainLayout
+  }
 }
-
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-</style>
+</script>
