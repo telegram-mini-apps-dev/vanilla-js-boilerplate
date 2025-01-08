@@ -10,7 +10,7 @@
             class="waterfall-item" 
             v-for="item in column" 
             :key="item.image_url"
-            @click="openImageDetail(item)"
+            @click="navigateToCharacter(item)"
           >
             <div class="image-placeholder">
               <img 
@@ -205,9 +205,13 @@ export default {
       await this.loadMoreItems();
       this.isTagLoading = false;
     },
-    openImageDetail(item) {
-      this.selectedImage = item      
-      
+    navigateToCharacter(item) {      
+      this.$router.push({
+        name: 'Character',
+        params: {
+          imageData: "https://images.weserv.nl/?url=https://meco-web-sg.oss-accelerate.aliyuncs.com/aigc/assets/2024/12/23/101c09d1-7703-41eb-9a9a-e90333d43d67.webp?width=2560&height=1600"          
+        }
+      });
     },
     updateColumnCount() {
       // Remove responsive logic and always use 2 columns

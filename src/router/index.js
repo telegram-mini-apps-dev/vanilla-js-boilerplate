@@ -2,10 +2,11 @@ import { createRouter, createWebHistory } from 'vue-router'
 import MainLayout from '../layouts/MainLayout.vue'
 import Home from '../pages/Home.vue'
 import ImageAdjust from '../components/ImageAdjust.vue'
+import Character from '../components/Character.vue'
 
 const routes = [
   {
-    path: '/',
+    path: '/sexsex',
     component: MainLayout,
     children: [
       {
@@ -17,6 +18,12 @@ const routes = [
         path: '/image-adjust/:imageUrl/:description',
         name: 'ImageAdjust',
         component: ImageAdjust,
+        props: true
+      },      
+      {
+        path: '/character/:imageData',
+        name: 'Character',
+        component: Character,
         props: true
       }
     ]

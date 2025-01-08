@@ -1,18 +1,17 @@
 <template>
   <div id="app">
-    <ImageWaterfall />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import ImageWaterfall from './pages/ImageWaterfall.vue'
-// import Home from './laa/Home.vue'
-import MainLayout from './layouts/MainLayout.vue'
-
 export default {
   name: 'App',
-  components: {
-    ImageWaterfall
+  mounted() {
+    if (window.Telegram?.WebApp) {
+      window.Telegram.WebApp.ready();
+      window.Telegram.WebApp.expand();
+    }
   }
 }
 </script>
