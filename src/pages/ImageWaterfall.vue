@@ -8,9 +8,9 @@
         <div class="waterfall-column" v-for="(column, columnIndex) in columns" :key="columnIndex">
           <div 
             class="waterfall-item" 
-            v-for="item in column" 
+            v-for="(item, itemIndex) in column" 
             :key="item.image_url"
-            @click="navigateToCharacter(item)"
+            @click="navigateToCharacter(itemIndex, columnIndex, itemIndex)"
           >
             <div class="image-placeholder">
               <img 
@@ -29,7 +29,6 @@
 <script>
 import { indexData } from '../data/landscape.js'
 import { oceanData } from '../data/ocean.js'
-import { recommendData } from '../data/recommend.js'
 import ImageDetail from '../components/ImageDetail.vue'
 import '../styles/ImageWaterfall.css'
 
@@ -58,6 +57,7 @@ export default {
       activeSideTag: 'all',
       searchQuery: '',
       searchTimeout: null,
+      recommendData: [], // Add this new property
     }
   },
   methods: {
@@ -108,8 +108,18 @@ export default {
         this.distributeItems();
       }
     },
-    loadAllData() {
-      // Modify to only process recommended data
+    async fetchRecommendData() {
+      try {
+        const response = await fetch('https://raw.githubusercontent.com/AllanChen/sexsex/refs/heads/master/src/assets/recommend.json');
+        this.recommendData = await response.json();
+      } catch (error) {
+        console.error('Error fetching recommend data:', error);
+        this.recommendData = []; // Fallback to empty array if fetch fails
+      }
+    },
+    async loadAllData() {
+      await this.fetchRecommendData(); // Wait for data to be fetched
+      
       const processData = (data, tag) => {
         return data.map(item => ({
           ...item,
@@ -118,10 +128,7 @@ export default {
       };
 
       this.allItems = {
-        recommended: processData(recommendData, 'recommended'),
-        // Remove or comment out other data sources
-        // latest: processData(indexData, 'latest'),
-        // hot: processData(oceanData, 'hot')
+        recommended: processData(this.recommendData, 'recommended'),
       };
       
       this.loadMoreItems();
@@ -205,11 +212,20 @@ export default {
       await this.loadMoreItems();
       this.isTagLoading = false;
     },
-    navigateToCharacter(item) {      
+    navigateToCharacter(item, columnIndex, itemIndex) {
+      // Get the actual item from the column
+      const selectedItem = this.columns[columnIndex][itemIndex];    
+      // Find the index of this item in the original dataset
+      const currentData = this.allItems[this.activeTopTag] || [];
+      const datasetIndex = currentData.findIndex(dataItem => 
+        dataItem.image_url === selectedItem.image_url
+      );
+      
       this.$router.push({
         name: 'Character',
         params: {
-          imageData: "https://images.weserv.nl/?url=https://meco-web-sg.oss-accelerate.aliyuncs.com/aigc/assets/2024/12/23/101c09d1-7703-41eb-9a9a-e90333d43d67.webp?width=2560&height=1600"          
+          id: 0,
+          index: datasetIndex
         }
       });
     },

@@ -14,18 +14,34 @@ export default {
   name: 'Character',
   data() {
     return {
-    imageData: ""       
+      imageData: "",       
+      selectedIndex: 0,
+      recommendData: []
     }
   },
-  created() {
-    // Get the data passed through route
-    console.log(this.$route.params.imageData)
-    // this.imageData = this.$route.params.imageData || {};
-    if (this.$route.params.imageData) {
-      this.imageData = this.$route.params.imageData;
-    } else {
-      console.error('No image data provided');
+  methods: {
+    async fetchRecommendData() {
+      try {
+        const response = await fetch('https://raw.githubusercontent.com/AllanChen/sexsex/refs/heads/master/src/assets/recommend.json');
+        this.recommendData = await response.json();
+      } catch (error) {
+        console.error('Error fetching recommend data:', error);
+        this.recommendData = []; // Fallback to empty array if fetch fails
+      }
+    },
+    async loadAllData() {
+      await this.fetchRecommendData();
+      if (this.recommendData.length > 0) {
+        this.imageData = this.recommendData[this.selectedIndex].image_url;
+      }
     }
+  },
+  
+  async created() {    
+    if (this.$route.params.index) {
+      this.selectedIndex = parseInt(this.$route.params.index);
+    }
+    await this.loadAllData();
   }
 }
 </script>

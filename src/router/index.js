@@ -21,7 +21,7 @@ const routes = [
         props: true
       },      
       {
-        path: '/character/:imageData',
+        path: '/character/:id/:index',  // Add :index parameter to the path
         name: 'Character',
         component: Character,
         props: true
