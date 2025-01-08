@@ -9,5 +9,12 @@ export default defineConfig({
     alias: {
       'vue': 'vue/dist/vue.esm-bundler.js'
     }
+  },
+  // Add proper handling of file types
+  assetsInclude: ['**/*.vue'],
+  css: {
+    modules: {
+      localsConvention: 'camelCaseOnly'
+    }
   }
 })
