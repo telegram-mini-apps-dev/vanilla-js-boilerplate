@@ -1,5 +1,28 @@
 <template>
   <div class="waterfall-wrapper">
+    <div class="tag-switcher">
+      <div 
+        class="tag-item" 
+        :class="{ active: activeTopTag === 'new' }"
+        @click="setActiveTopTag('new')"
+      >
+        New
+      </div>
+      <div 
+        class="tag-item" 
+        :class="{ active: activeTopTag === 'hot' }"
+        @click="setActiveTopTag('hot')"
+      >
+        Hot
+      </div>
+      <div 
+        class="tag-item" 
+        :class="{ active: activeTopTag === 'discovery' }"
+        @click="setActiveTopTag('discovery')"
+      >
+        Discovery
+      </div>
+    </div>
     <div class="content-wrapper">
       <div class="waterfall-container">
         <div v-if="isTagLoading" class="tag-loading-overlay">
@@ -18,6 +41,18 @@
                 :alt="item.description.join(', ')"
                 @load="onImageLoad"
               >
+              <div class="image-overlay">
+                <div class="character-name">{{ item.name || 'Unknown' }}</div>
+                <div class="interaction-stats">
+                  <span class="love-count">
+                    <i class="fas fa-heart"></i> {{ item.loves || 0 }}
+                  </span>
+                  <span class="chat-count">
+                    <i class="fas fa-comment"></i> {{ item.comments || 0 }}
+                  </span>
+                </div>
+                <div class="character-info">{{ item.description[0] || 'No description' }}</div>
+              </div>
             </div>
           </div>
         </div>
