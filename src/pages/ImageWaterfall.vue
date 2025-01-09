@@ -110,7 +110,7 @@ export default {
     },
     async fetchRecommendData() {
       try {
-        const response = await fetch('https://raw.githubusercontent.com/AllanChen/sexsex/refs/heads/master/src/assets/recommend.json');
+        const response = await fetch('https://raw.githubusercontent.com/AllanChen/sexsex/refs/heads/master/src/assets/sexy.json');
         this.recommendData = await response.json();
       } catch (error) {
         console.error('Error fetching recommend data:', error);
