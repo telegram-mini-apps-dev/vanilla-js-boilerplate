@@ -4,10 +4,10 @@
       <span>←</span>
     </div>
     <div class="chat-container" :style="{ backgroundImage: `url(${imageData})` }">
-      <div class="chat-history">
+      <div class="chat-history" ref="chatHistory">
         <div v-for="(message, index) in chatHistory" :key="index" 
              :class="['message', message.type]">
-          <div class="message-content">{{ message.text }}</div>
+          <div class="message-content">{{ message.content }}</div>
         </div>
       </div>
       <div class="chat-input">
@@ -16,14 +16,18 @@
           @keyup.enter="sendMessage"
           placeholder="Type a message..."
           type="text"
+          :disabled="isLoading"
         >
-        <button @click="sendMessage">Send</button>
+        <button @click="sendMessage" :disabled="isLoading">
+          {{ isLoading ? 'Sending...' : 'Send' }}
+        </button>
       </div>
     </div>    
   </div>
 </template>
 
 <script>
+import '../styles/Character.css'
 export default {
   name: 'Character',
   data() {
@@ -32,13 +36,14 @@ export default {
       selectedIndex: 0,
       recommendData: [],
       chatHistory: [], // Array to store chat messages
-      newMessage: ""   // For input message
+      newMessage: "",   // For input message
+      isLoading: false,
     }
   },
   methods: {
     async fetchRecommendData() {
       try {
-        const response = await fetch('https://raw.githubusercontent.com/AllanChen/sexsex/refs/heads/master/src/assets/recommend.json');
+        const response = await fetch('https://raw.githubusercontent.com/AllanChen/sexsex/refs/heads/master/src/assets/sexy.json');
         this.recommendData = await response.json();
       } catch (error) {
         console.error('Error fetching recommend data:', error);
@@ -54,24 +59,81 @@ export default {
     goBack() {
       this.$router.go(-1);  // Assuming ImageWaterfall is at root route
     },
-    sendMessage() {
-      if (!this.newMessage.trim()) return;
+    scrollToBottom() {
+      if (this.$refs.chatHistory) {
+        setTimeout(() => {
+          this.$refs.chatHistory.scrollTop = this.$refs.chatHistory.scrollHeight;
+        }, 0);
+      }
+    },
+    async sendMessage() {
+      if (!this.newMessage.trim() || this.isLoading) return;
       
-      // Add user message
+      this.isLoading = true;
+      // Add user message with new structure
       this.chatHistory.push({
-        type: 'user',
-        text: this.newMessage
+        content: this.newMessage,
+        role: "user",
+        name: "用户"
       });
+      this.scrollToBottom();
 
-      // Simulate AI response (you can replace this with actual API call)
-      setTimeout(() => {
-        this.chatHistory.push({
-          type: 'ai',
-          text: `I received: ${this.newMessage}`
+      try {
+        const payload = {
+          url: "https://api.minimax.chat/v1/text/chatcompletion_v2",
+          method: "POST",
+          payload: JSON.stringify({
+            model: "abab5.5s-chat",
+            messages: [
+              {
+                content: "角色名字：慕容婉,关系：女友,性别：女性,年龄：22,个性：温柔.开朗.霸道.主动.占有慾强.超好色,喜欢：吃你.苦瓜.你害羞的时候,长相：优雅.美丽,身材：苗条.D罩杯.,皮肤：光滑.柔软.米白色,身高：175,体重：61.5,gb! gb! gb!,描述：,你的女友,很好色,喜欢动手动脚,对你的唇非常感兴趣,总爱把你按在墙上或床上又亲又咬的,用力亲吻你的嘴唇,撬开你的牙齿,直到你喘不过气,还常常摸你的胸,喜欢捏你胸上的红点点,听着你那娇喘颤抖的呻吟感到愉悦,每当看见你的身影就会上前挑逗,喜欢调戏你,看到你脸红就会兴奋起来，兴致来了会把你按在各种地方,用各种方式触碰你的私密部位,时常用膝盖盯着你的私密处一旦你起了反应,会开始脱你的衣服,做爱,开始了就无法停下,一天多次,做的时候会从你的唇亲到胸上,慢慢咬着你胸前凸起的地方,在舔两口,她的力气非常大你反抗不了,她非常主动,你时常被她搞得腰酸背痛如果你露出胸上的凸起的红点点,她会一直盯着,然后把你扑倒舔上去。", // Your system prompt
+                role: "system",
+                name: "慕容婉"
+              },
+              {
+                content: this.newMessage,
+                role: "user",
+                name: "用户"
+              }
+            ],
+            stream: false,
+            max_tokens: 256,
+            temperature: 0.1,
+            top_p: 0.95
+          })
+        };
+
+        // Using the proxy path instead of the direct URL
+        const response = await fetch('/api/proxymsg/minimax', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify(payload)
         });
-      }, 1000);
 
-      this.newMessage = ""; // Clear input
+        const data = await response.json();
+        console.log(JSON.parse(data.response).choices?.[0]?.message?.content);
+        // Add AI response with new structure
+        this.chatHistory.push({
+          content: JSON.parse(data.response).choices?.[0]?.message?.content || 'Sorry, I could not process your request',
+          role: "assistant",
+          name: "慕容婉"
+        });
+        this.scrollToBottom();
+      } catch (error) {
+        console.error('Error sending message:', error);
+        this.chatHistory.push({
+          content: 'Sorry, an error occurred while processing your message',
+          role: "assistant",
+          name: "慕容婉"
+        });
+        this.scrollToBottom();
+      } finally {
+        this.isLoading = false;
+        this.newMessage = ""; // Clear input
+      }
     }
   },
   
@@ -84,98 +146,4 @@ export default {
 }
 </script>
 
-<style scoped>
-.character-page {
-  width: 100%;
-  height: 100vh;
-  background: #fff;
-}
 
-.chat-container {
-  width: 100%;
-  height: 100vh;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-
-.chat-history {
-  flex: 1;
-  overflow-y: auto;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.message {
-  max-width: 70%;
-  padding: 10px 15px;
-  border-radius: 15px;
-  margin: 5px;
-}
-
-.user {
-  align-self: flex-end;
-  background-color: rgba(0, 132, 255, 0.8);
-  color: white;
-}
-
-.ai {
-  align-self: flex-start;
-  background-color: rgba(255, 255, 255, 0.9);
-  color: black;
-}
-
-.chat-input {
-  padding: 20px;
-  background-color: rgba(255, 255, 255, 0.9);
-  display: flex;
-  gap: 10px;
-}
-
-.chat-input input {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 20px;
-  outline: none;
-}
-
-.chat-input button {
-  padding: 10px 20px;
-  background-color: #0084ff;
-  color: white;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-.chat-input button:hover {
-  background-color: #0073e6;
-}
-
-.back-button {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  font-size: 24px;
-  z-index: 1;
-}
-
-.back-button:hover {
-  background: rgba(0, 0, 0, 0.7);
-}
-</style>
