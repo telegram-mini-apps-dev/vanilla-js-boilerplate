@@ -1,0 +1,212 @@
+.character-page {
+    width: 100%;
+    height: 100vh;
+    background: #fff;
+  }
+  
+  .chat-container {
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  
+  .chat-history {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+  }
+  
+  .message {
+    font-size: 1.2rem;
+    color: white;
+    max-width: 70%;
+    margin: 5px;
+  }
+  
+  .user {
+    align-self: flex-end;
+  }
+  
+  .ai {
+    align-self: flex-start;
+  }
+
+  .message-content {
+    padding: 10px 20px;
+    border-radius: 20px;
+  }
+
+  .message.user .message-content {
+    background: #302d4ffa;
+    border-top-right-radius: 5px;
+  }
+
+  .message.ai .message-content {
+    background: #6964cbfa;
+    border-top-left-radius: 5px;
+  }
+
+  .message-time {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 5px;
+  }
+
+  .message.user .message-time {
+    text-align: right;
+  }
+
+  .chat-wrapper {
+    z-index: 10;
+    margin-bottom: 20px;
+  }
+  
+  .chat-input {
+    padding: 10px 20px;
+    display: flex;
+    gap: 0.4rem;
+    font-size: 1rem;
+  }
+  
+  .chat-input input {
+    width: 100%;
+    font-size: 1.1rem;
+    color: white;
+    border: none;
+    outline: none;
+    background-color: transparent;
+  }
+
+  .chat-input input::placeholder {
+    color: rgba(255, 255, 255, 0.45);
+  }
+  
+  .chat-input button {
+    font-size: 1.1rem;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.3);
+    color: white;
+    border: none;
+    border-radius: 1rem;
+    cursor: pointer;
+  }
+
+  .chat-input-wrapper {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+    width: 70vw;
+    padding: 10px;
+    border-radius: 1rem;
+    background-color: rgba(255, 255, 255, 0.3);
+    overflow: hidden;
+  }
+  
+  .chat-input-icon {
+    width: 1.8rem;
+    height: 1.8rem;
+    cursor: pointer;
+  }
+  
+  .back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 1;
+  }
+  
+  .back-button:hover {
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  .chat-tips {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0.5rem 20px;
+    height: 28vh;
+    overflow: hidden;
+  }
+
+  .chat-tips-item {
+    display: flex;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.9);
+    padding: 0.5rem;
+    border: 2px solid transparent;
+    border-radius: 0.5rem;
+    background-clip: padding-box, border-box;
+    background-origin: padding-box, border-box;
+    background-image: linear-gradient(269deg, #2e2c57 0%, #39374d 50%),
+      linear-gradient(to left, #6862b69f, #4540939f, #413d8f9f, #706bbf9f);
+    cursor: pointer;
+  }
+
+  .chat-tips-item:hover, .chat-tips-item:active {
+    background-image: linear-gradient(269deg, #444081d9 0%, #535171d9 50%),
+      linear-gradient(to left, #6762b6, #454093, #413d8f, #706bbf);
+  }
+
+  .chat-tips-item img {
+    width: 0.7rem;
+  }
+
+  .chat-tips-item-content {
+    flex: 1;
+    font-size: 0.8rem;
+    padding: 0 0.5rem;
+  }
+
+  .collapse-enter-active, .collapse-leave-active {
+    transition: height 0.3s;
+  }
+
+  .collapse-enter-from, .collapse-leave-to {
+    height: 0;
+  }
+
+  .chat-input-mask {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 25vh;
+    background-image: linear-gradient(
+      179deg,
+      #3a394000 0%,
+      #39383f12 6%,
+      #38373e29 11%,
+      #37363d45 17%,
+      #36353c63 23%,
+      #34343a80 29%,
+      #34333999 35%,
+      #333239b0 40%,
+      #323139c4 46%,
+      #323138d1 52%,
+      #2e2d36e0 63%,
+      #211e2f 100%
+    );
+  }
+
+  .chat-input-mask.with-tips {
+    height: 53vh;
+  }
