@@ -7,46 +7,54 @@
       <div class="chat-history" ref="chatHistory">
         <div v-for="(message, index) in chatHistory" :key="index" 
              :class="['message', message.type]">
-          <div class="message-content">{{ message.content }}</div>
+          <template v-if="!message.loading">
+            <div class="message-content">{{ message.content }}</div>
+            <div class="message-time">{{ message.time }}</div>
+          </template>
+          <LoadingBar v-else class="message-content" />
         </div>
       </div>
-      <div class="chat-input">
-        <div class="chat-input-wrapper">
-          <input 
-            v-model="newMessage" 
-            @keyup.enter="sendMessage"
-            placeholder="Type a message..."
-            type="text"
-            :disabled="isLoading"
-          >
-          <img
-            class="chat-input-icon"
-            :style="chatInputIconStyle"
-            :src="chatInputIconUrl"
-            @click="toggleChatTipsPanelState"
-          />
+      <div class="chat-wrapper">
+        <div class="chat-input">
+          <div class="chat-input-wrapper">
+            <input
+              ref="inputRef"
+              v-model="newMessage" 
+              @keyup.enter="sendMessage"
+              placeholder="Type a message..."
+              type="text"
+            >
+            <img
+              class="chat-input-icon"
+              :src="chatInputIconUrl"
+              @click="toggleChatTipsPanelState"
+            />
+          </div>
+          <button @click="sendMessage">
+            Send
+          </button>
         </div>
-        <button @click="sendMessage" :disabled="isLoading">
-          {{ isLoading ? 'Sending...' : 'Send' }}
-        </button>
+
+        <!-- 聊天提示 -->
+        <Transition name="collapse">
+          <div v-show="isShowChatTips" ref="chatTips" class="chat-tips">
+            <div
+              v-for="item in tips"
+              :key="item.content"
+              class="chat-tips-item"
+              @click="handleTipsClick(item)"
+            >
+              <img :src="getImageUrl('chat-tips-decoration')" />
+              <span v-if="!item.loading" class="chat-tips-item-content">{{ item.content }}</span>
+              <AppSvga v-else :src="chatTipsLoding" />
+              <img :src="getImageUrl('chat-tips-decoration')" />
+            </div>
+          </div>
+        </Transition>
       </div>
 
-      <!-- 聊天提示 -->
-      <Transition name="collapse">
-        <div v-show="isShowChatTips" ref="chatTips" class="chat-tips">
-          <div
-            v-for="item in tips"
-            :key="item.content"
-            class="chat-tips-item"
-            @click="handleTipsClick(item)"
-          >
-            <img :src="getImageUrl('chat-tips-decoration')" />
-            <span v-if="!item.loading" class="chat-tips-item-content">{{ item.content }}</span>
-            <AppSvga v-else :src="chatTipsLoding" />
-            <img :src="getImageUrl('chat-tips-decoration')" />
-          </div>
-        </div>
-      </Transition>
+      <!-- 输入框蒙层 -->
+      <div class="chat-input-mask" :class="{ 'with-tips': isShowChatTips }"></div>
     </div>    
   </div>
 </template>
@@ -56,16 +64,19 @@ import { onClickOutside } from '@vueuse/core';
 
 import { chatWithMinimax } from '../api/minimax';
 import { getImageUrl } from '../utils/util';
+import { formatTime } from '../utils/time';
 import { tipsReqData } from '../data/tips';
 
 import AppSvga from './AppSvga.vue';
+import LoadingBar from './LoadingBar.vue';
 import '../styles/Character.css';
 import chatTipsLoding from '../assets/svga/chat-tips-loading.svga';
 
 export default {
   name: 'Character',
   components: {
-    AppSvga
+    AppSvga,
+    LoadingBar
   },
   data() {
     return {
@@ -74,7 +85,6 @@ export default {
       recommendData: [],
       chatHistory: [], // Array to store chat messages
       newMessage: "",   // For input message
-      isLoading: false,
       isShowChatTips: false,
       tips: [
         { content: '', loading: false },
@@ -85,11 +95,6 @@ export default {
     }
   },
   computed: {
-    chatInputIconStyle() {
-      return {
-        filter: this.isShowChatTips ? '' : 'invert(1) contrast(0.2)'
-      };
-    },
     chatInputIconUrl() {
       return getImageUrl(this.isShowChatTips ? 'chat-tips-active-icon' : 'chat-tips-icon');
     }
@@ -136,16 +141,29 @@ export default {
       }
     },
     async sendMessage() {
-      if (!this.newMessage.trim() || this.isLoading) return;
-      
-      this.isLoading = true;
+      if (!this.newMessage.trim()) return;
+
+      const content = this.newMessage;
+      this.newMessage = ""; // Clear input
+      this.$refs.inputRef.blur(); // Remove focus from input
+
       // Add user message with new structure
       this.chatHistory.push({
-        content: this.newMessage,
+        content,
         role: "user",
         name: "用户",
-        type: "user"
+        type: "user",
+        time: formatTime(Date.now())
       });
+      const length = this.chatHistory.push({
+        content: '',
+        role: "assistant",
+        name: "慕容婉",
+        type: "ai",
+        time: formatTime(Date.now()),
+        loading: true
+      });
+      const index = length - 1;
       this.scrollToBottom();
 
       try {
@@ -156,33 +174,22 @@ export default {
             name: "慕容婉"
           },
           {
-            content: this.newMessage,
+            content,
             role: "user",
             name: "用户"
           }
         ]);
 
         console.log(response.choices?.[0]?.message?.content);
-        // Add AI response with new structure
-        this.chatHistory.push({
-          content: response.choices?.[0]?.message?.content || 'Sorry, I could not process your request',
-          role: "assistant",
-          name: "慕容婉",
-          type: "ai"
-        });
-        this.scrollToBottom();
+        // Update the last message with the response
+        this.chatHistory[index].content = response.choices?.[0]?.message?.content || 'Sorry, I could not process your request';
+        this.chatHistory[index].time = formatTime(response.created * 1000, 'Asia/Shanghai');
       } catch (error) {
         console.error('Error sending message:', error);
-        this.chatHistory.push({
-          content: 'Sorry, an error occurred while processing your message',
-          role: "assistant",
-          name: "慕容婉",
-          type: "ai"
-        });
-        this.scrollToBottom();
+        this.chatHistory[index].content = 'Sorry, I could not process your request';
       } finally {
-        this.isLoading = false;
-        this.newMessage = ""; // Clear input
+        this.chatHistory[index].loading = false;
+        this.scrollToBottom();
       }
     },
     toggleChatTipsPanelState() {
@@ -194,7 +201,7 @@ export default {
     getImageUrl,
     handleTipsClick(item) {
       if (item.loading) return;
-      this.newMessage = item;
+      this.newMessage = item.content;
       this.isShowChatTips = false;
       this.sendMessage();
     }
