@@ -15,13 +15,13 @@ const routes = [
         component: Home
       },
       {
-        path: '/image-adjust/:imageUrl/:description',
+        path: 'image-adjust/:imageUrl/:description',
         name: 'ImageAdjust',
         component: ImageAdjust,
         props: true
       },      
       {
-        path: '/character/:id/:index',  // Add :index parameter to the path
+        path: 'character/:id/:index',  // Add :index parameter to the path
         name: 'Character',
         component: Character,
         props: true
