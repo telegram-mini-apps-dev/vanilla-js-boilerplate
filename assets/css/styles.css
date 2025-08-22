@@ -1,0 +1,47 @@
+body {
+    --bg-color: var(--tg-theme-bg-color);
+    font: 12px/18px "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--tg-theme-text-color);
+    margin: 48px 24px;
+    padding: 0;
+    color-scheme: var(--tg-color-scheme);
+}
+
+a {
+    color: var(--tg-theme-link-color);
+}
+
+#viewport {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: var(--tg-viewport-stable-height, 100vh);
+    pointer-events: none;
+    transition: all 0.2s ease;
+}
+
+#loader {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #3498db;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    z-index: 9999;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
