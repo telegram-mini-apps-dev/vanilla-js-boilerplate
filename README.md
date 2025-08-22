@@ -10,7 +10,7 @@ This is a basic and straightforward Telegram Mini App(TMA) implemented using pla
 
 - App is available via direct link: https://t.me/simple_telegram_mini_app_bot/app
 - Or you can launch app with a bot menu button: https://t.me/simple_telegram_mini_app_bot
-- Deployment URL: [https://twa-dev.github.io/simple-telegram-web-app/](https://telegram-mini-apps-dev.github.io/vanilla-js-boilerplate/)
+- Deployment URL: [https://twa-dev.github.io/simple-telegram-web-app/](https://telegram-mini-apps-dev.github.io/telegram-mini/)
 
 ## Features
 - Minimalistic user interface.
@@ -28,12 +28,12 @@ To run this example, you'll need a modern web browser with JavaScript enabled.
 1. Clone this repository to your local machine:
 
    ```bash
-   git clone https://github.com/Telegram-Mini-Apps-Dev/vanilla-js-boilerplate
+   git clone https://github.com/Telegram-Mini-Apps-Dev/telegram-mini
 
 2. Navigate to the project directory:
 
 	```bash
-	cd vanilla-js-boilerplate
+	cd telegram-mini
 
 Open index.html in your preferred code editor or IDE.
 
