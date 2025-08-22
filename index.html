@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Telegram Mini Apps Vanilla JS Sample App</title>
+    <title>Telegram Mini Apps Vanilla JS Sample App!!</title>
     <style>
         body {
             --bg-color: var(--tg-theme-bg-color);
@@ -19,6 +21,7 @@
         a {
             color: var(--tg-theme-link-color);
         }
+
         #viewport {
             position: fixed;
             left: 0;
@@ -28,6 +31,7 @@
             pointer-events: none;
             transition: all .2s ease;
         }
+
         #viewport:after {
             content: '';
             display: block;
@@ -53,9 +57,11 @@
             padding: 4px;
             vertical-align: top;
         }
+
         #viewport-params-size {
             top: 4px;
         }
+
         #viewport-params-expand {
             top: 30px;
         }
@@ -68,19 +74,21 @@
             <a href="https://ton.org/"><img width="48" src="./assets/tapps.png" alt="logo of telegram web apps"></a>
         </div>
         <h1>Modals</h1>
-        <button onclick="Telegram.WebApp.showAlert('Hello World!');">Launch Alert</button>
+        <button onclick="Telegram.WebApp.showAlert('Hello Ton!!!');">Launch Alert</button>
         <button onclick="showPopup();">Launch Popup</button>
 
         <h1>Links</h1>
         <ul>
             <li>
-                <a href="javascript:Telegram.WebApp.openTelegramLink('https://t.me/trendingapps');">Open link within Telegram</a>
+                <a href="javascript:Telegram.WebApp.openTelegramLink('https://t.me/trendingapps');">Open link within
+                    Telegram</a>
             </li>
             <li>
                 <a href="javascript:Telegram.WebApp.openLink('https://ton.org/');">Open link in external browser</a>
             </li>
             <li>
-                <a href="javascript:Telegram.WebApp.openLink('https://telegra.ph/api',{try_instant_view:true});">Open link inside Telegram webview</a>
+                <a href="javascript:Telegram.WebApp.openLink('https://telegra.ph/api',{try_instant_view:true});">Open
+                    link inside Telegram webview</a>
             </li>
         </ul>
 
@@ -97,7 +105,7 @@
         Telegram.WebApp.ready();
 
         // Event occurs whenever theme settings are changed in the user's Telegram app (including switching to night mode).
-        Telegram.WebApp.onEvent('themeChanged', function() {
+        Telegram.WebApp.onEvent('themeChanged', function () {
             document.documentElement.className = Telegram.WebApp.colorScheme;
         });
 
@@ -107,7 +115,7 @@
         });
         Telegram.WebApp.MainButton.onClick(function () {
             Telegram.WebApp.showAlert('Main Button was clicked')
-        });	
+        });
         Telegram.WebApp.MainButton.show();
 
         // Function to call showPopup API
@@ -116,10 +124,10 @@
                 title: 'Title',
                 message: 'Some message',
                 buttons: [
-                    {id: 'link', type: 'default', text: 'Open ton.org'},
-                    {type: 'cancel'},
+                    { id: 'link', type: 'default', text: 'Open ton.org' },
+                    { type: 'cancel' },
                 ]
-            }, function(btn) {
+            }, function (btn) {
                 if (btn === 'link') {
                     Telegram.WebApp.openLink('https://ton.org/');
                 }
@@ -137,7 +145,7 @@
 
         function setViewportData() {
             var sizeEl = document.getElementById('viewport-params-size');
-            sizeEl.innerText = 'width: ' + window.innerWidth + ' x ' + 
+            sizeEl.innerText = 'width: ' + window.innerWidth + ' x ' +
                 'height: ' + Telegram.WebApp.viewportStableHeight;
 
             var expandEl = document.querySelector('#viewport-params-expand');
@@ -149,7 +157,7 @@
         setViewportData();
         Telegram.WebApp.onEvent('viewportChanged', setViewportData);
 
-        Telegram.WebApp.onEvent('themeChanged', function() {
+        Telegram.WebApp.onEvent('themeChanged', function () {
             document.body.setAttribute('style', '--bg-color:' + Telegram.WebApp.backgroundColor);
         });
 
@@ -159,4 +167,5 @@
     <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
     <script>eruda.init();</script>
 </body>
+
 </html>
